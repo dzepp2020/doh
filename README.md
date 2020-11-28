@@ -1,4 +1,4 @@
-# doh
+# DNS over HTTP - DoH
 Python wrapper for DNS over HTTP
 
 
