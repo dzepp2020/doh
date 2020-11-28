@@ -1,6 +1,7 @@
 import requests
 import json
 import sys
+import argparse
 
 # Global variables
 recordType={
@@ -34,9 +35,27 @@ def debug(response):
 #
 # Main
 def main():
-   value=sys.argv[1]
-   type=sys.argv[2]
+   # Initialize parser
+   isDebug=False
+   parser = argparse.ArgumentParser()
+   # Adding optional argument
+   parser.add_argument( "-d","--debug" , required=False, help = "Show additional HTTP info.")
+   # Adding required arguments
+   parser.add_argument( "-r", "--rec", required=True, help = "Record/value to look up (e.g. www.google.com).")
+   parser.add_argument( "-t", "--type", required=True, help = "DNS record type (e.g. A, MX, NS).")
+   # Read arguments from command line
+   args = parser.parse_args() 
+   
+   if args.rec:
+      value = args.rec
 
+   if args.type:
+      type = args.type
+
+   if args.debug:
+      print("Debug")
+      isDebug=True
+   
    if type.upper() == "PTR":
      value += ".in-addr.arpa"
 
@@ -44,14 +63,15 @@ def main():
    print(url)
 
    response=requests.get(url)
-   debug(response)
+   if isDebug:
+      debug(response)
 
    if response.status_code == 200:
       myDict=response.json()
       if myDict['Status'] ==0:
          print(('Status: {}'.format(myDict['Status']) ))
-         print('Value: ' + value)
-         print('Type: ' + type.upper())
+         print('Value:\t' + value)
+         print('Type:\t' +  type.upper())
          print('Answer:')
          answer=myDict['Answer']
          for x in answer:
