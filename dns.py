@@ -41,13 +41,13 @@ def main():
    # Adding optional argument
    parser.add_argument( "-d","--debug" , required=False, help = "Show additional HTTP info.")
    # Adding required arguments
-   parser.add_argument( "-r", "--rec", required=True, help = "Record/value to look up (e.g. www.google.com).")
+   parser.add_argument( "-r", "--res", required=True, help = "Record/value to look up (e.g. www.google.com).")
    parser.add_argument( "-t", "--type", required=True, help = "DNS record type (e.g. A, MX, NS).")
    # Read arguments from command line
    args = parser.parse_args() 
    
-   if args.rec:
-      value = args.rec
+   if args.res:
+      value = args.res
 
    if args.type:
       type = args.type
