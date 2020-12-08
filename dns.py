@@ -39,7 +39,7 @@ def main():
    isDebug=False
    parser = argparse.ArgumentParser()
    # Adding optional argument
-   parser.add_argument( "-d","--debug" , required=False, help = "Show additional HTTP info.")
+   parser.add_argument( "-d","--debug", action="store_true", help="Flag to show additional information.")
    # Adding required arguments
    parser.add_argument( "-r", "--res", required=True, help = "Record/value to look up (e.g. www.google.com).")
    parser.add_argument( "-t", "--type", required=True, help = "DNS record type (e.g. A, MX, NS).")
