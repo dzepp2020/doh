@@ -11,9 +11,14 @@ This a simple little wrapper to make DNS over HTTP to Google.
 
 # Usage
 ```
-$ python3 ./dns.py
-usage: dns.py [-h] [-d DEBUG] -r REC -t TYPE
-dns.py: error: the following arguments are required: -r/--rec, -t/--type
+$ python3 ./dns.py -h
+usage: dns.py [-h] [-d] -r RES -t TYPE
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -d, --debug           Flag to show additional information.
+  -r RES, --res RES     Record/value to look up (e.g. www.google.com).
+  -t TYPE, --type TYPE  DNS record type (e.g. A, MX, NS).
 ```
 
 # Example - google.com NS lookup
