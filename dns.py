@@ -3,6 +3,7 @@ import json
 import sys
 import argparse
 
+#
 # Global variables
 recordType={
 1:'A', 2:'NS', 3:'MD', 4:'MF', 5:'CNAME', 6:'SOA', 7:'MB', 8:'MG', 9:'MR', 10:'NULL', 11:'WKS', 12:'PTR',
@@ -15,7 +16,9 @@ recordType={
 106:'L64', 107:'LP', 108:'EUI48', 109:'EUI64', 249:'TKEY', 250:'TSIG', 251:'IXFR', 252:'AXFR', 253:'MAILB', 254:'MAILA',
 255:'*', 256:'URI', 257:'CAA', 258:'AVC', 259:'DOA', 260:'AMTRELAY', 32768:'TA', 32769:'DLV'}
 
-provider="https://dns.google.com/resolve?"
+
+#provider="https://dns.google.com/resolve?"
+provider="https://cloudflare-dns.com/dns-query?"
 
 #
 # Print 80 -
@@ -37,9 +40,12 @@ def debug(response):
 def main():
    # Initialize parser
    isDebug=False
+   isGoogle=True
    parser = argparse.ArgumentParser()
    # Adding optional argument
    parser.add_argument( "-d","--debug", action="store_true", help="Flag to show additional information.")
+   parser.add_argument( "-c","--cloudfare", action="store_true", help="Use Cloudfare instead of Google.")
+
    # Adding required arguments
    parser.add_argument( "-r", "--res", required=True, help = "Record/value to look up (e.g. www.google.com).")
    parser.add_argument( "-t", "--type", required=True, help = "DNS record type (e.g. A, MX, NS).")
@@ -52,6 +58,10 @@ def main():
    if args.type:
       type = args.type
 
+   if args.cloudfare:
+      print("Using Cloudfare")
+      isGoogle=False
+
    if args.debug:
       print("Debug")
       isDebug=True
@@ -59,10 +69,19 @@ def main():
    if type.upper() == "PTR":
      value += ".in-addr.arpa"
 
+
+
+   if isGoogle:
+     provider="https://dns.google.com/resolve?"
+   else: 
+     provider="https://cloudflare-dns.com/dns-query?"
+
    url = provider + "name=" + value + "&type=" + type
+
    print(url)
 
-   response=requests.get(url)
+   response=requests.get(url,headers={'Accept':'application/dns-json'})
+   #response=requests.get(url)
    if isDebug:
       debug(response)
 
