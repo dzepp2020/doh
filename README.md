@@ -17,6 +17,7 @@ usage: dns.py [-h] [-d] -r RES -t TYPE
 optional arguments:
   -h, --help            show this help message and exit
   -d, --debug           Flag to show additional information.
+  -c, --cloudfare       Use Cloudfare not Google
   -r RES, --res RES     Record/value to look up (e.g. www.google.com).
   -t TYPE, --type TYPE  DNS record type (e.g. A, MX, NS).
 ```
