@@ -4,7 +4,7 @@ import sys
 import argparse
 
 #
-# Global variables...
+# Global variables......
 #
 recordType={
 1:'A', 2:'NS', 3:'MD', 4:'MF', 5:'CNAME', 6:'SOA', 7:'MB', 8:'MG', 9:'MR', 10:'NULL', 11:'WKS', 12:'PTR',
